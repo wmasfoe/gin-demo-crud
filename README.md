@@ -2,9 +2,7 @@
 
 执行 `go env`，查看 `go111module="on"`，没🪜查看是否 配置 `GOPROXY` 推荐两个源：https://goproxy.cn/  https://goproxy.io/
 
-> 这是大坑！
-
-这个大坑可看博客：[go-get-fail](https://blog.justdev.cn/blog/golang/go-get-fail)
+> 这是大坑！可看博客：[go-get-fail](https://blog.justdev.cn/blog/golang/go-get-fail)
 
 项目初始化
 
