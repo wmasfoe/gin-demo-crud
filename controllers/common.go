@@ -1,20 +1,36 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type JsonStruct struct {
 	Code  int         `json:"code"`
-	Msg   interface{} `json:"msg"`
+	Msg   interface{} `json:"msg" default:"success"`
 	Data  interface{} `json:"data"`
 	Count uint64      `json:"count"`
 }
 
-func SuccessModel(c *gin.Context, code int, meg interface{}, data interface{}, count uint64) {
-	json := &JsonStruct{code, meg, data, count}
-	c.JSON(200, json)
+type CodeMappingSt struct {
+	Success  int
+	Error    int
+	NotFound int
 }
 
-func ErrorModel(c *gin.Context, code int, meg interface{}) {
-	json := &JsonStruct{Code: code, Msg: meg}
-	c.JSON(200, json)
+var CodeMapping = CodeMappingSt{
+	Success:  200,
+	Error:    0,
+	NotFound: 404,
+}
+
+func SuccessResp(c *gin.Context, data interface{}, code int, count uint64, msg ...interface{}) {
+	json := &JsonStruct{code, msg, data, count}
+	c.JSON(http.StatusOK, json)
+}
+
+func ErrorResp(c *gin.Context, msg interface{}, code int) {
+	json := &JsonStruct{Code: code, Msg: msg}
+	c.JSON(0, json)
 }
